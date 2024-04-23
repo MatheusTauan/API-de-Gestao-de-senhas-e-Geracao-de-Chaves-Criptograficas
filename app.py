@@ -32,6 +32,17 @@ def verificador_de_senha():
     
     return jsonify({"valido": True, "mensagem": "A senha atende a todos os requisitos."})
 
+@app.route("/criarsenha/<usuario>/<senha>")
+def criar_senha(usuario, senha):
+    senhas[usuario] = senha
+    return f'senha criada para o usuario {usuario}'
 
+@app.route("/obtersenha/<usuario>")
+def obter_senha(usuario):
+    if usuario in senhas:
+        return f'senha do usuario {usuario}: {senhas[usuario]}'
+    else:
+        return f'usuario {usuario} não encontrado'
+    
 if __name__ == '__main__':
     app.run(debug=True)
